@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Blazor;
+
 
 namespace BlazorQuiz.Client
 {
@@ -15,6 +17,7 @@ namespace BlazorQuiz.Client
     {
         public static async Task Main(string[] args)
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mjg0ODUzQDMxMzgyZTMyMmUzMGxua1hidkxMTVBtK3hJRDlGSHMyOWt6dzJSa1lCcm9RM0dyYUR1OE9KQzQ9");
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
 
@@ -25,6 +28,8 @@ namespace BlazorQuiz.Client
             builder.Services.AddTransient(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorQuiz.ServerAPI"));
 
             builder.Services.AddApiAuthorization();
+            builder.Services.AddSyncfusionBlazor();
+
 
             await builder.Build().RunAsync();
         }

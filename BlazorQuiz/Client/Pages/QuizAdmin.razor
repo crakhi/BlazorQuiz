@@ -1,21 +1,18 @@
-﻿@page "/Quiz"
-@using BlazorQuiz.Shared.ViewModels
+﻿@page "/QuizAdmin"
+@using Microsoft.AspNetCore.Authorization
 @using Syncfusion.Blazor.RichTextEditor
 @using Syncfusion.Blazor.DropDowns
+@using BlazorQuiz.Shared.ViewModels;
 
 
-
-<h3>Quiz</h3>
+<h1>Add Question</h1>
 
 <EditForm EditContext="@editContext" OnSubmit="HandleSubmit">
-
-    <input id="aaa" />
 
     <div class="form-row myml-2 ">
         <div class="form-group" style="width:100%;">
             <label for="question">Question</label>
             <SfRichTextEditor @bind-Value="addQuestionViewModel.Question" ShowCharCount="true">
-
             </SfRichTextEditor>
             <ValidationMessage For="@(() => addQuestionViewModel.Question)">What's the Question to Add?</ValidationMessage>
         </div>
@@ -31,7 +28,7 @@
             </div>
         </div>
         <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option A">
+            <SfRichTextEditor Placeholder="Enter Option A" @bind-Value="addQuestionViewModel.OptionA">
                 <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
             </SfRichTextEditor>
         </div>
@@ -47,7 +44,7 @@
             </div>
         </div>
         <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option B">
+            <SfRichTextEditor Placeholder="Enter Option B" @bind-Value="addQuestionViewModel.OptionB">
                 <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
             </SfRichTextEditor>
         </div>
@@ -63,7 +60,7 @@
             </div>
         </div>
         <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option C">
+            <SfRichTextEditor Placeholder="Enter Option C" @bind-Value="addQuestionViewModel.OptionC">
                 <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
             </SfRichTextEditor>
         </div>
@@ -79,7 +76,7 @@
             </div>
         </div>
         <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option D">
+            <SfRichTextEditor Placeholder="Enter Option D" @bind-Value="addQuestionViewModel.OptionD">
                 <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
             </SfRichTextEditor>
         </div>
@@ -95,14 +92,14 @@
             </div>
         </div>
         <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option E">
+            <SfRichTextEditor Placeholder="Enter Option E" @bind-Value="addQuestionViewModel.OptionE">
                 <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
             </SfRichTextEditor>
         </div>
     </div>
 
 
-    <div class="myml-2 ">
+    <div class="myml-2">
         <div class="form-row">
             <div class="form-group col-12">
                 <label for="languageTags"> Language Tags</label>
@@ -139,13 +136,27 @@
             </div>
         </div>
     </div>
-    <DataAnnotationsValidator />
-    <ValidationSummary />
 
-    <button type="submit">Submit</button>
+
+    <DataAnnotationsValidator />
+
+    <button type="submit" class="btn btn-primary myml-2 mb-3" id="btnAddQuestion">Add Question</button>
 </EditForm>
 
+
+
+<style type="text/css">
+    .e-content {
+        min-height: 50px !important;
+    }
+
+    .myml-2 {
+        margin-left: 2rem !important;
+    }
+</style>
+
 @code {
+
     private AddQuestionViewModel addQuestionViewModel = new AddQuestionViewModel();
 
     private EditContext editContext;
@@ -157,10 +168,8 @@
 
     private async Task HandleSubmit()
     {
-        var a = editContext.Validate();
-        Console.WriteLine("dataannn: " + a);
         var isValid = editContext.Validate() &&
-            await ServerValidate(editContext);
+            await CustomValidate(editContext);
 
         if (isValid)
         {
@@ -172,20 +181,12 @@
         }
     }
 
-    private async Task<bool> ServerValidate(EditContext editContext)
+    private async Task<bool> CustomValidate(EditContext editContext)
     {
         var serverChecksValid = true;
 
         return serverChecksValid;
     }
-
-
-
-
-
-
-
-
 
 
 
@@ -219,4 +220,18 @@
         new Countries() { Name = "United Kingdom", Code = "GB" },
         new Countries() { Name = "United States", Code = "US" },
     };
+
+    public object[] Items = new object[] {
+        "Replace", "Align", "Caption", "Remove",
+        "InsertLink", "OpenImageLink", "-", "EditImageLink",
+        "RemoveImageLink", "Display", "AltText", "Dimension"
+    };
+
+    public object[] Link = new object[] {
+        "Open", "Edit", "UnLink"
+    };
+
+    
+
 }
+

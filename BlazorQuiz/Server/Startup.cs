@@ -13,6 +13,8 @@ using Microsoft.Extensions.Hosting;
 using System.Linq;
 using BlazorQuiz.Server.Data;
 using BlazorQuiz.Server.Models;
+using Syncfusion.Blazor;
+
 
 namespace BlazorQuiz.Server
 {
@@ -44,17 +46,20 @@ namespace BlazorQuiz.Server
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+            //services.AddSyncfusionBlazor();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
-            app.UseWebAssemblyDebugging();
+            //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mjg0ODUzQDMxMzgyZTMyMmUzMGxua1hidkxMTVBtK3hJRDlGSHMyOWt6dzJSa1lCcm9RM0dyYUR1OE9KQzQ9");
             if (env.IsDevelopment())
             {
-                
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+                app.UseWebAssemblyDebugging();
+
             }
             else
             {
