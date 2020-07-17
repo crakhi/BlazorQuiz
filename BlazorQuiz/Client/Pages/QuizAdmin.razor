@@ -13,17 +13,13 @@
     <div class="form-row myml-2 ">
         <div class="input-group" style="width:100%;">
             <label for="question">Question</label>
-            @*<SfRichTextEditor @bind-Value="addQuestionViewModel.Question" ShowCharCount="true">
-                <RichTextEditorPasteCleanupSettings Prompt="true" PlainText="false" KeepFormat="false" DeniedTags="@DeniedTag" DeniedAttrs="@DeniedAttributes" AllowedStyleProps="@AllowedStyles"></RichTextEditorPasteCleanupSettings>
-
-            </SfRichTextEditor>*@
-            <SfRichTextEditor Placeholder="Enter Option A" @bind-Value="addQuestionViewModel.Question">
-                <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
-            </SfRichTextEditor>
+           <SfRichTextEditor @bind-Value="addQuestionViewModel.Question" ShowCharCount="true">
+               <p>Enter your Question here</p>
+           </SfRichTextEditor>           
             <ValidationMessage For="@(() => addQuestionViewModel.Question)">What's the Question to Add?</ValidationMessage>
         </div>
     </div>
-
+    
     <div class="form-row options mb-3">
         <div class="input-group-append">
             <label for="optionA" class="form-control border-0">A) </label>

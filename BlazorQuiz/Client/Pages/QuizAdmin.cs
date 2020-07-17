@@ -35,6 +35,7 @@ namespace BlazorQuiz.Client.Pages
             {
                 Console.WriteLine("valid");
                 await QuizService.AddQuestionAsync((AddQuestionViewModel)editContext.Model);
+                addQuestionViewModel = new AddQuestionViewModel();
 
             }
             else
