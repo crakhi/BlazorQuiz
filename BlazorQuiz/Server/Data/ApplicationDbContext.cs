@@ -1,4 +1,5 @@
-﻿using BlazorQuiz.Server.Models;
+﻿using BlazorQuiz.EntityFramework.Entities;
+using BlazorQuiz.Server.Models;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
@@ -17,5 +18,9 @@ namespace BlazorQuiz.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Option> Options { get; set; }
+
     }
 }

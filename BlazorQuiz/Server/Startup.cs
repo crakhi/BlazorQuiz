@@ -45,8 +45,8 @@ namespace BlazorQuiz.Server
                 .AddIdentityServerJwt();
 
             services.AddControllersWithViews();
-            services.AddRazorPages();
-            //services.AddSyncfusionBlazor();
+            services.AddRazorPages();            
+            
 
         }
 

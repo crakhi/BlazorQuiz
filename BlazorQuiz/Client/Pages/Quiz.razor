@@ -1,222 +1,98 @@
-﻿@page "/Quiz"
+﻿@page "/Quiz/{QuestionId}"
 @using BlazorQuiz.Shared.ViewModels
-@using Syncfusion.Blazor.RichTextEditor
-@using Syncfusion.Blazor.DropDowns
 
-
-
-<h3>Quiz</h3>
-
-<EditForm EditContext="@editContext" OnSubmit="HandleSubmit">
-
-    <input id="aaa" />
-
-    <div class="form-row myml-2 ">
-        <div class="form-group" style="width:100%;">
-            <label for="question">Question</label>
-            <SfRichTextEditor @bind-Value="addQuestionViewModel.Question" ShowCharCount="true">
-
-            </SfRichTextEditor>
-            <ValidationMessage For="@(() => addQuestionViewModel.Question)">What's the Question to Add?</ValidationMessage>
-        </div>
-    </div>
-
-    <div class="form-row options mb-3">
-        <div class="input-group-append">
-            <label for="optionA" class="form-control border-0">A) </label>
-        </div>
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-                <InputCheckbox @bind-Value="addQuestionViewModel.IsOptionASelected" />
-            </div>
-        </div>
-        <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option A">
-                <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
-            </SfRichTextEditor>
-        </div>
-    </div>
-
-    <div class="form-row options mb-3">
-        <div class="input-group-append">
-            <label for="optionB" class="form-control border-0">B) </label>
-        </div>
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-                <InputCheckbox @bind-Value="addQuestionViewModel.IsOptionBSelected" />
-            </div>
-        </div>
-        <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option B">
-                <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
-            </SfRichTextEditor>
-        </div>
-    </div>
-
-    <div class="form-row options mb-3">
-        <div class="input-group-append">
-            <label for="optionC" class="form-control border-0">C) </label>
-        </div>
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-                <InputCheckbox @bind-Value="addQuestionViewModel.IsOptionCSelected" />
-            </div>
-        </div>
-        <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option C">
-                <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
-            </SfRichTextEditor>
-        </div>
-    </div>
-
-    <div class="form-row options mb-3">
-        <div class="input-group-append">
-            <label for="optionD" class="form-control border-0">D) </label>
-        </div>
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-                <InputCheckbox @bind-Value="addQuestionViewModel.IsOptionDSelected" />
-            </div>
-        </div>
-        <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option D">
-                <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
-            </SfRichTextEditor>
-        </div>
-    </div>
-
-    <div class="form-row options mb-3">
-        <div class="input-group-append">
-            <label for="optionE" class="form-control border-0">E) </label>
-        </div>
-        <div class="input-group-prepend">
-            <div class="input-group-text">
-                <InputCheckbox @bind-Value="addQuestionViewModel.IsOptionESelected" />
-            </div>
-        </div>
-        <div class="input-group col" style="border:1px solid #ced4da;">
-            <SfRichTextEditor Placeholder="Enter Option E">
-                <RichTextEditorInlineMode Enable="true" OnSelection="true"></RichTextEditorInlineMode>
-            </SfRichTextEditor>
-        </div>
-    </div>
-
-
-    <div class="myml-2 ">
-        <div class="form-row">
-            <div class="form-group col-12">
-                <label for="languageTags"> Language Tags</label>
-                <div style="width:100%">
-                    <SfMultiSelect TValue="string[]" @bind-Value="addQuestionViewModel.LanguageTags" Placeholder="Select Tags" DataSource="@Country" AllowCustomValue="true" Mode="@VisualMode.Box">
-                        <MultiSelectFieldSettings Text="Name" Value="Code"></MultiSelectFieldSettings>
-                    </SfMultiSelect>
+    <div class="row">
+        <EditForm EditContext="@editContext" OnSubmit="HandleSubmit">
+            <div class="col-9">
+                <h3>Question</h3>
+                <div class="=row question">
+                    <div class="col">
+                        @((MarkupString)@AddQuestionViewModel.Question)
+                    </div>
                 </div>
-                <ValidationMessage For="@(() => addQuestionViewModel.LanguageTags)">Language Tags are required</ValidationMessage>
-            </div>
-        </div>
 
-        <div class="form-row">
-            <div class="form-group col-12">
-                <label for="examTags"> Exam Tags</label>
-                <div style="width:100%">
-                    <SfMultiSelect TValue="string[]" @bind-Value="addQuestionViewModel.ExamTags" Placeholder="Select Tags" DataSource="@Country" AllowCustomValue="true" Mode="@VisualMode.Box">
-                        <MultiSelectFieldSettings Text="Name" Value="Code"></MultiSelectFieldSettings>
-                    </SfMultiSelect>
-                </div>
-                <ValidationMessage For="@(() => addQuestionViewModel.ExamTags)">Exam Tags are required</ValidationMessage>
-            </div>
-        </div>
+                <div class="row options mb-3">
+                    <div class="input-group-append">
+                        <label for="optionA" class="form-control border-0">A) </label>
+                    </div>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <InputCheckbox @bind-Value="@AddQuestionViewModel.IsOptionASelected" />
+                        </div>
+                    </div>
+                    <div class="input-group col" style="border:1px solid #ced4da;">
 
-        <div class="form-row">
-            <div class="form-group col-12">
-                <label for="areaTags"> Area Tags</label>
-                <div style="width:100%">
-                    <SfMultiSelect TValue="string[]" @bind-Value="addQuestionViewModel.AreaTags" Placeholder="Select Tags" DataSource="@Country" AllowCustomValue="true" Mode="@VisualMode.Box">
-                        <MultiSelectFieldSettings Text="Name" Value="Code"></MultiSelectFieldSettings>
-                    </SfMultiSelect>
+                        @((MarkupString)@AddQuestionViewModel.OptionA)
+                    </div>
                 </div>
-                <ValidationMessage For="@(() => addQuestionViewModel.AreaTags)">Area Tags are required</ValidationMessage>
+
+                <div class="row options mb-3">
+                    <div class="input-group-append">
+                        <label for="optionB" class="form-control border-0">B) </label>
+                    </div>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <InputCheckbox @bind-Value="@AddQuestionViewModel.IsOptionBSelected" />
+                        </div>
+                    </div>
+                    <div class="input-group col" style="border:1px solid #ced4da;">
+
+                        @((MarkupString)@AddQuestionViewModel.OptionB)
+                    </div>
+                </div>
+                <div class="row options mb-3">
+                    <div class="input-group-append">
+                        <label for="optionC" class="form-control border-0">C) </label>
+                    </div>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <InputCheckbox @bind-Value="AddQuestionViewModel.IsOptionCSelected" />
+                        </div>
+                    </div>
+                    <div class="input-group col" style="border:1px solid #ced4da;">
+
+                        @((MarkupString)@AddQuestionViewModel.OptionC)
+                    </div>
+                </div>
+                <div class="row options mb-3">
+                    <div class="input-group-append">
+                        <label for="optionD" class="form-control border-0">D) </label>
+                    </div>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <InputCheckbox @bind-Value="AddQuestionViewModel.IsOptionDSelected" />
+                        </div>
+                    </div>
+                    <div class="input-group col" style="border:1px solid #ced4da;">
+
+                        @((MarkupString)@AddQuestionViewModel.OptionD)
+                    </div>
+                </div>
+                <div class="row options mb-3">
+                    <div class="input-group-append">
+                        <label for="optionE" class="form-control border-0">E) </label>
+                    </div>
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <InputCheckbox @bind-Value="AddQuestionViewModel.IsOptionESelected" />
+                        </div>
+                    </div>
+                    <div class="input-group col" style="border:1px solid #ced4da;">
+
+                        @((MarkupString)@AddQuestionViewModel.OptionE)
+                    </div>
+                </div>
+
             </div>
+
+            <button type="submit" class="btn btn-primary myml-2 mb-3" id="btnAddQuestion">Submit</button>
+
+        </EditForm>
+
+        <button @onclick="NextQuestion" class="btn btn-primary myml-2 mb-3" id="btnAddQuestion1">Next Question</button>
+
+        <div class="col-3">
+
+            
         </div>
     </div>
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <button type="submit">Submit</button>
-</EditForm>
-
-@code {
-    private AddQuestionViewModel addQuestionViewModel = new AddQuestionViewModel();
-
-    private EditContext editContext;
-
-    protected override void OnInitialized()
-    {
-        editContext = new EditContext(addQuestionViewModel);
-    }
-
-    private async Task HandleSubmit()
-    {
-        var a = editContext.Validate();
-        Console.WriteLine("dataannn: " + a);
-        var isValid = editContext.Validate() &&
-            await ServerValidate(editContext);
-
-        if (isValid)
-        {
-            Console.WriteLine("valid");
-        }
-        else
-        {
-            Console.WriteLine("invalid");
-        }
-    }
-
-    private async Task<bool> ServerValidate(EditContext editContext)
-    {
-        var serverChecksValid = true;
-
-        return serverChecksValid;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public class Countries
-    {
-        public string Name { get; set; }
-        public string Code { get; set; }
-    }
-    private List<Countries> Country = new List<Countries>
-{
-        new Countries() { Name = "Australia", Code = "AU" },
-        new Countries() { Name = "Bermuda", Code = "BM" },
-        new Countries() { Name = "Canada", Code = "CA" },
-        new Countries() { Name = "Cameroon", Code = "CM" },
-        new Countries() { Name = "Denmark", Code = "DK" },
-        new Countries() { Name = "France", Code = "FR" },
-        new Countries() { Name = "Finland", Code = "FI" },
-        new Countries() { Name = "Germany", Code = "DE" },
-        new Countries() { Name = "Greenland", Code = "GL" },
-        new Countries() { Name = "Hong Kong", Code = "HK" },
-        new Countries() { Name = "India", Code = "IN" },
-        new Countries() { Name = "Italy", Code = "IT" },
-        new Countries() { Name = "Japan", Code = "JP" },
-        new Countries() { Name = "Mexico", Code = "MX" },
-        new Countries() { Name = "Norway", Code = "NO" },
-        new Countries() { Name = "Poland", Code = "PL" },
-        new Countries() { Name = "Switzerland", Code = "CH" },
-        new Countries() { Name = "United Kingdom", Code = "GB" },
-        new Countries() { Name = "United States", Code = "US" },
-    };
-}

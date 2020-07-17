@@ -8,6 +8,7 @@ namespace BlazorQuiz.Client.Services
 {
     public interface IQuizService
     {
-        public Task AddQuestion(AddQuestionViewModel addQuestionViewModel);
+        public Task AddQuestionAsync(AddQuestionViewModel addQuestionViewModel);
+        public Task<AddQuestionViewModel> GetQuestionAsync(string questionId);
     }
 }
